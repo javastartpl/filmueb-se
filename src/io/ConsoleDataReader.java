@@ -58,7 +58,7 @@ public class ConsoleDataReader {
             System.out.println("Podane dane są nieprawidłowe, nie udało się utworzyć serialu");
             return null;
         } else {
-            return new TvSeries(title, seasons, episodes, producer, genre, description, 10);
+            return new TvSeries(title, seasons, episodes, producer, genre, description, rating);
         }
     }
 
@@ -71,5 +71,11 @@ public class ConsoleDataReader {
         System.out.println("Podaj kraj pochodzenia");
         String country = scanner.nextLine();
         return new Actor(firstName, lastName, country);
+    }
+
+    public int readInt() {
+        int number = scanner.nextInt();
+        scanner.nextLine();
+        return number;
     }
 }
