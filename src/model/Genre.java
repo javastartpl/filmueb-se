@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.GenreNotExistsException;
+
 public enum Genre {
     SCI_FI("Sci Fi"),
     COMEDY("Komedia"),
@@ -18,7 +20,7 @@ public enum Genre {
 
     public static Genre convert(String genre) {
         if(genre == null)
-            return null;
+            throw new NullPointerException();
         Genre found = null;
         Genre[] genres = Genre.values();
         for (int i = 0; i < genres.length && found == null; i++) {
@@ -26,6 +28,8 @@ public enum Genre {
                 found = genres[i];
             }
         }
+        if(found == null)
+            throw new GenreNotExistsException(genre);
         return found;
     }
 

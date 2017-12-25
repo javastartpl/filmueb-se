@@ -1,5 +1,7 @@
 package controller;
 
+import controller.exceptions.OptionNotExistsException;
+
 public enum Option {
     ADD_MOVIE(0, "Dodaj film"),
     ADD_TV(1, "Dodaj Serial"),
@@ -25,7 +27,7 @@ public enum Option {
 
     public static Option convert(int optionNumber) {
         if(optionNumber < 0 || optionNumber >= Option.values().length)
-            return null;
+            throw new OptionNotExistsException(optionNumber);
         else
             return Option.values()[optionNumber];
     }

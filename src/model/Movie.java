@@ -1,5 +1,7 @@
 package model;
 
+import io.exceptions.IncorrectDataException;
+
 import java.util.Objects;
 
 public class Movie extends Item {
@@ -8,7 +10,7 @@ public class Movie extends Item {
 
     public Movie(String title, Genre genre, String description, int rating, int year, String director) {
         super(title, genre, description, rating);
-        this.year = year;
+        setYear(year);
         this.director = director;
     }
 
@@ -17,6 +19,8 @@ public class Movie extends Item {
     }
 
     public void setYear(int year) {
+        if(year < 0)
+            throw new IncorrectDataException("Nieprawidowy rok " + year);
         this.year = year;
     }
 

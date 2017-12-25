@@ -1,5 +1,6 @@
 package db;
 
+import db.exceptions.DuplicateException;
 import model.Actor;
 import model.Movie;
 import model.TvSeries;
@@ -16,7 +17,7 @@ public class ApplicationDatabase {
 
     public void addMovie(Movie movie) {
         if(contains(movie)) {
-            System.out.println("Taki film już istnieje");
+            throw new DuplicateException("Rekord już istnieje w bazie " + movie.toString());
         } else {
             movies[numberOfMovies] = movie;
             numberOfMovies++;
@@ -25,7 +26,7 @@ public class ApplicationDatabase {
 
     public void addTvSeries(TvSeries tv) {
         if(contains(tv)) {
-            System.out.println("Taki serial już istnieje");
+            throw new DuplicateException("Rekord już istnieje w bazie " + tv.toString());
         } else {
             tvSeries[numberOfTvSeries] = tv;
             numberOfTvSeries++;
@@ -34,7 +35,7 @@ public class ApplicationDatabase {
 
     public void addActor(Actor actor) {
         if(contains(actor)) {
-            System.out.println("Taki aktos już istnieje");
+            throw new DuplicateException("Rekord już istnieje w bazie " + actor.toString());
         } else {
             actors[numberOfActors] = actor;
             numberOfActors++;

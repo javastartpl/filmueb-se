@@ -1,5 +1,7 @@
 package model;
 
+import io.exceptions.IncorrectDataException;
+
 import java.util.Objects;
 
 public class TvSeries extends Item{
@@ -9,8 +11,8 @@ public class TvSeries extends Item{
 
     public TvSeries(String title, Genre genre, String description, int rating, int seasons, int episodes, String producer) {
         super(title, genre, description, rating);
-        this.seasons = seasons;
-        this.episodes = episodes;
+        setSeasons(seasons);
+        setEpisodes(episodes);
         this.producer = producer;
     }
 
@@ -19,6 +21,8 @@ public class TvSeries extends Item{
     }
 
     public void setSeasons(int seasons) {
+        if(seasons < 0)
+            throw new IncorrectDataException("Ilość sezonów musi być >= 0 (" + seasons + ")");
         this.seasons = seasons;
     }
 
@@ -27,6 +31,8 @@ public class TvSeries extends Item{
     }
 
     public void setEpisodes(int episodes) {
+        if(episodes < 0)
+            throw new IncorrectDataException("Ilość odcinków musi być >= 0 (" + episodes + ")");
         this.episodes = episodes;
     }
 

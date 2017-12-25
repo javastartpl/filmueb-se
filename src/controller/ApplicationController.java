@@ -1,74 +1,100 @@
 package controller;
 
+import controller.exceptions.OptionNotExistsException;
 import db.ApplicationDatabase;
-import io.ConsoleDataReader;
+import db.exceptions.DuplicateException;
+import io.ApplicationIO;
+import io.exceptions.IncorrectDataException;
 import model.Actor;
 import model.Movie;
 import model.TvSeries;
 
 public class ApplicationController {
 
-    private ConsoleDataReader reader = new ConsoleDataReader();
+    private ApplicationIO io = new ApplicationIO();
     private ApplicationDatabase database = new ApplicationDatabase();
 
     public void mainLoop() {
         Option userOption = null;
         do {
             printOptions();
-            System.out.println("Wybierz opcję:");
-            userOption = Option.convert(reader.readInt());
+            try {
+                userOption = Option.convert(io.readInt("Podaj opcję"));
+            } catch (OptionNotExistsException e) {
+                io.printlnError(e.getMessage());
+                continue;
+            }
             chooseOption(userOption);
-        } while (userOption == null || userOption != Option.EXIT);
+        } while (userOption != Option.EXIT);
     }
 
     private void printOptions() {
+        io.println("----------------");
         for (Option option : Option.values()) {
-            System.out.println(option);
+            io.println(option.toString());
         }
+        io.println("----------------");
     }
 
     private void chooseOption(Option option) {
-        if(option == null)
-            System.out.println("Nie ma takiej opcji");
-        else
-            switch (option) {
-                case ADD_MOVIE:
-                    Movie movie = reader.createMovie();
-                    if (movie != null) {
-                        database.addMovie(movie);
-                    }
-                    break;
-                case ADD_TV:
-                    TvSeries tvSeries = reader.createTvSeries();
-                    if (tvSeries != null) {
-                        database.addTvSeries(tvSeries);
-                    }
-                    break;
-                case ADD_ACTOR:
-                    Actor actor = reader.createActor();
-                    database.addActor(actor);
-                    break;
-                case PRINT_ALL:
-                    printAll();
-                    break;
-                case EXIT:
-                    System.out.println("Koniec programu");
-                    break;
-            }
+        switch (option) {
+            case ADD_MOVIE:
+                addMovie();
+                break;
+            case ADD_TV:
+                addTvSeries();
+                break;
+            case ADD_ACTOR:
+                addActor();
+                break;
+            case PRINT_ALL:
+                printAll();
+                break;
+            case EXIT:
+                io.println("Koniec programu");
+                break;
+        }
+    }
+
+    private void addActor() {
+        Actor actor = io.createActor();
+        try {
+            database.addActor(actor);
+        } catch (DuplicateException e) {
+            io.printlnError(e.getMessage());
+        }
+    }
+
+    private void addTvSeries() {
+        try {
+            TvSeries tvSeries = io.createTvSeries();
+            database.addTvSeries(tvSeries);
+        } catch (DuplicateException | IncorrectDataException e) {
+            io.printlnError(e.getMessage());
+        }
+    }
+
+    private void addMovie() {
+        try {
+            Movie movie = io.createMovie();
+            database.addMovie(movie);
+        } catch (DuplicateException | IncorrectDataException e) {
+            io.printlnError(e.getMessage());
+        }
     }
 
     private void printAll() {
-        System.out.println("Filmy:");
+        io.println("Filmy: ");
         for (Movie movie : database.getMovies()) {
-            System.out.println(movie);
+            io.println(movie.toString());
         }
-        System.out.println("Seriale:");
+        io.println("Seriale:");
         for (TvSeries tvSeries : database.getTvSeries()) {
-            System.out.println(tvSeries);
+            io.println(tvSeries.toString());
         }
-        System.out.println("Aktorzy:");
+        io.println("Aktorzy:");
         for (Actor actor : database.getActors()) {
-            System.out.println(actor);
+            io.println(actor.toString());
         }
     }
 

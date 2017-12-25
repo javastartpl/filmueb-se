@@ -1,5 +1,7 @@
 package model;
 
+import io.exceptions.IncorrectDataException;
+
 import java.util.Objects;
 
 public abstract class Item {
@@ -10,9 +12,9 @@ public abstract class Item {
 
     public Item(String title, Genre genre, String description, int rating) {
         this.title = title;
-        this.genre = genre;
+        setGenre(genre);
         this.description = description;
-        this.rating = rating;
+        setRating(rating);
     }
 
     public String getTitle() {
@@ -28,6 +30,8 @@ public abstract class Item {
     }
 
     public void setGenre(Genre genre) {
+        if(genre == null)
+            throw new NullPointerException("Gatunek nie może być null");
         this.genre = genre;
     }
 
@@ -44,6 +48,8 @@ public abstract class Item {
     }
 
     public void setRating(int rating) {
+        if(rating < 0 || rating > 10)
+            throw new IncorrectDataException("Ocena musi być z przedziału 1-10 (" + rating + ")");
         this.rating = rating;
     }
 
