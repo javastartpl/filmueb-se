@@ -15,18 +15,30 @@ public class ApplicationDatabase {
     private int numberOfActors = 0;
 
     public void addMovie(Movie movie) {
-        movies[numberOfMovies] = movie;
-        numberOfMovies++;
+        if(contains(movie)) {
+            System.out.println("Taki film już istnieje");
+        } else {
+            movies[numberOfMovies] = movie;
+            numberOfMovies++;
+        }
     }
 
     public void addTvSeries(TvSeries tv) {
-        tvSeries[numberOfTvSeries] = tv;
-        numberOfTvSeries++;
+        if(contains(tv)) {
+            System.out.println("Taki serial już istnieje");
+        } else {
+            tvSeries[numberOfTvSeries] = tv;
+            numberOfTvSeries++;
+        }
     }
 
     public void addActor(Actor actor) {
-        actors[numberOfActors] = actor;
-        numberOfActors++;
+        if(contains(actor)) {
+            System.out.println("Taki aktos już istnieje");
+        } else {
+            actors[numberOfActors] = actor;
+            numberOfActors++;
+        }
     }
 
     ///poniższe metody zwracają tablice bez nulli
@@ -38,6 +50,14 @@ public class ApplicationDatabase {
         return withoutNulls;
     }
 
+    private boolean contains(Movie movie) {
+        boolean result = false;
+        for (int i = 0; i < numberOfMovies && !result; i++) {
+            result = movies[i].equals(movie);
+        }
+        return result;
+    }
+
     public TvSeries[] getTvSeries() {
         TvSeries[] withoutNulls = new TvSeries[numberOfTvSeries];
         for (int i = 0; i < numberOfTvSeries; i++) {
@@ -46,11 +66,27 @@ public class ApplicationDatabase {
         return withoutNulls;
     }
 
+    private boolean contains(TvSeries tv) {
+        boolean result = false;
+        for (int i = 0; i < numberOfTvSeries && !result; i++) {
+            result = tvSeries[i].equals(tv);
+        }
+        return result;
+    }
+
     public Actor[] getActors() {
         Actor[] withoutNulls = new Actor[numberOfActors];
         for (int i = 0; i < numberOfActors; i++) {
             withoutNulls[i] = actors[i];
         }
         return withoutNulls;
+    }
+
+    private boolean contains(Actor actor) {
+        boolean result = false;
+        for (int i = 0; i < numberOfActors && !result; i++) {
+            result = actors[i].equals(actor);
+        }
+        return result;
     }
 }

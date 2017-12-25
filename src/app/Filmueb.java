@@ -5,7 +5,7 @@ import controller.ApplicationController;
 public class Filmueb {
 
     public static void main(String[] args) {
-        final String appName = "app.Filmueb v0.4";
+        final String appName = "app.Filmueb v0.6";
         System.out.println(appName);
 
         ApplicationController controller = new ApplicationController();

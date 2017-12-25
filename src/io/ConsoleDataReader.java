@@ -1,9 +1,11 @@
 package io;
 
 import model.Actor;
+import model.Genre;
 import model.Movie;
 import model.TvSeries;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ConsoleDataReader {
@@ -18,15 +20,15 @@ public class ConsoleDataReader {
         scanner.nextLine();
         System.out.println("Podaj reżysera");
         String director = scanner.nextLine();
-        System.out.println("Podaj gatunek");
-        String genre = scanner.nextLine();
+        System.out.printf("Podaj gatunek %s\n", Arrays.toString(Genre.values()));
+        Genre genre = Genre.convert(scanner.nextLine());
         System.out.println("Podaj opis");
         String description = scanner.nextLine();
         System.out.println("Podaj ocenę (1-10)");
         int rating = scanner.nextInt();
         scanner.nextLine();
 
-        if(year < 0 || rating <= 0 || rating > 10) {
+        if(year < 0 || rating <= 0 || rating > 10 || genre == null) {
             System.out.println("Podane dane są nieprawidłowe, nie udało się utworzyć filmu");
             return null;
         } else {
@@ -46,8 +48,8 @@ public class ConsoleDataReader {
         scanner.nextLine();
         System.out.println("Podaj producenta");
         String producer = scanner.nextLine();
-        System.out.println("Podaj gatunek");
-        String genre = scanner.nextLine();
+        System.out.printf("Podaj gatunek %s\n", Arrays.toString(Genre.values()));
+        Genre genre = Genre.convert(scanner.nextLine());
         System.out.println("Podaj opis");
         String description = scanner.nextLine();
         System.out.println("Podaj ocenę (1-10)");
@@ -78,4 +80,5 @@ public class ConsoleDataReader {
         scanner.nextLine();
         return number;
     }
+
 }

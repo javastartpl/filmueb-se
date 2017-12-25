@@ -12,64 +12,63 @@ public class ApplicationController {
     private ApplicationDatabase database = new ApplicationDatabase();
 
     public void mainLoop() {
-        int userOption = 0;
+        Option userOption = null;
         do {
             printOptions();
             System.out.println("Wybierz opcję:");
-            userOption = reader.readInt();
+            userOption = Option.convert(reader.readInt());
             chooseOption(userOption);
-        } while (userOption != Option.EXIT);
+        } while (userOption == null || userOption != Option.EXIT);
     }
 
     private void printOptions() {
-        System.out.println(Option.ADD_MOVIE + " - Dodanie filmu");
-        System.out.println(Option.ADD_TV + " - Dodanie serialu");
-        System.out.println(Option.ADD_ACTOR + " - Dodanie aktora");
-        System.out.println(Option.PRINT_ALL + " - Wyświetl wszystko");
-        System.out.println(Option.EXIT + " - Koniec programu");
+        for (Option option : Option.values()) {
+            System.out.println(option);
+        }
     }
 
-    private void chooseOption(int option) {
-        switch (option) {
-            case Option.ADD_MOVIE:
-                Movie movie = reader.createMovie();
-                if(movie != null) {
-                    database.addMovie(movie);
-                }
-                break;
-            case Option.ADD_TV:
-                TvSeries tvSeries = reader.createTvSeries();
-                if(tvSeries != null) {
-                    database.addTvSeries(tvSeries);
-                }
-                break;
-            case Option.ADD_ACTOR:
-                Actor actor = reader.createActor();
-                database.addActor(actor);
-                break;
-            case Option.PRINT_ALL:
-                printAll();
-                break;
-            case Option.EXIT:
-                System.out.println("Koniec programu");
-                break;
-            default:
-                System.out.println("Nie ma takiej opcji");
-        }
+    private void chooseOption(Option option) {
+        if(option == null)
+            System.out.println("Nie ma takiej opcji");
+        else
+            switch (option) {
+                case ADD_MOVIE:
+                    Movie movie = reader.createMovie();
+                    if (movie != null) {
+                        database.addMovie(movie);
+                    }
+                    break;
+                case ADD_TV:
+                    TvSeries tvSeries = reader.createTvSeries();
+                    if (tvSeries != null) {
+                        database.addTvSeries(tvSeries);
+                    }
+                    break;
+                case ADD_ACTOR:
+                    Actor actor = reader.createActor();
+                    database.addActor(actor);
+                    break;
+                case PRINT_ALL:
+                    printAll();
+                    break;
+                case EXIT:
+                    System.out.println("Koniec programu");
+                    break;
+            }
     }
 
     private void printAll() {
-        System.out.println("Filmy");
+        System.out.println("Filmy:");
         for (Movie movie : database.getMovies()) {
-            movie.showInfo();
+            System.out.println(movie);
         }
-        System.out.println("Seriale");
+        System.out.println("Seriale:");
         for (TvSeries tvSeries : database.getTvSeries()) {
-            tvSeries.showInfo();
+            System.out.println(tvSeries);
         }
-        System.out.println("Aktorzy");
+        System.out.println("Aktorzy:");
         for (Actor actor : database.getActors()) {
-            actor.showInfo();
+            System.out.println(actor);
         }
     }
 
