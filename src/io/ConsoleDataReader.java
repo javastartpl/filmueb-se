@@ -30,7 +30,7 @@ public class ConsoleDataReader {
             System.out.println("Podane dane są nieprawidłowe, nie udało się utworzyć filmu");
             return null;
         } else {
-            return new Movie(title, year, director, genre, description, rating);
+            return new Movie(title, genre, description, rating, year, director);
         }
     }
 
@@ -58,7 +58,7 @@ public class ConsoleDataReader {
             System.out.println("Podane dane są nieprawidłowe, nie udało się utworzyć serialu");
             return null;
         } else {
-            return new TvSeries(title, seasons, episodes, producer, genre, description, rating);
+            return new TvSeries(title, genre, description, rating, seasons, episodes, producer);
         }
     }
 

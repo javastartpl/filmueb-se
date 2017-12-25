@@ -18,39 +18,39 @@ public class ApplicationController {
             System.out.println("Wybierz opcję:");
             userOption = reader.readInt();
             chooseOption(userOption);
-        } while (userOption != 4);
+        } while (userOption != Option.EXIT);
     }
 
     private void printOptions() {
-        System.out.println("0 - Dodanie filmu");
-        System.out.println("1 - Dodanie serialu");
-        System.out.println("2 - Dodanie aktora");
-        System.out.println("3 - Wyświetl wszystko");
-        System.out.println("4 - Koniec programu");
+        System.out.println(Option.ADD_MOVIE + " - Dodanie filmu");
+        System.out.println(Option.ADD_TV + " - Dodanie serialu");
+        System.out.println(Option.ADD_ACTOR + " - Dodanie aktora");
+        System.out.println(Option.PRINT_ALL + " - Wyświetl wszystko");
+        System.out.println(Option.EXIT + " - Koniec programu");
     }
 
     private void chooseOption(int option) {
         switch (option) {
-            case 0:
+            case Option.ADD_MOVIE:
                 Movie movie = reader.createMovie();
                 if(movie != null) {
                     database.addMovie(movie);
                 }
                 break;
-            case 1:
+            case Option.ADD_TV:
                 TvSeries tvSeries = reader.createTvSeries();
                 if(tvSeries != null) {
                     database.addTvSeries(tvSeries);
                 }
                 break;
-            case 2:
+            case Option.ADD_ACTOR:
                 Actor actor = reader.createActor();
                 database.addActor(actor);
                 break;
-            case 3:
+            case Option.PRINT_ALL:
                 printAll();
                 break;
-            case 4:
+            case Option.EXIT:
                 System.out.println("Koniec programu");
                 break;
             default:
