@@ -2,7 +2,7 @@ package model;
 
 import java.util.Objects;
 
-public class Item {
+public abstract class Item {
     private String title;
     private Genre genre;
     private String description;
