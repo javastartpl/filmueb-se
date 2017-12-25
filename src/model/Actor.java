@@ -35,11 +35,12 @@ public class Actor {
         this.country = country;
     }
 
-    public void showInfo() {
-        System.out.println("Actor{" +
+    @Override
+    public String toString() {
+        return "Actor{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", country='" + country + '\'' +
-                '}');
+                '}';
     }
 }
