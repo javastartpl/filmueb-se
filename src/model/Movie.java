@@ -1,17 +1,17 @@
-public class TvSeries {
+package model;
+
+public class Movie {
     private String title;
-    private int seasons;
-    private int episodes;
-    private String producer;
+    private int year;
+    private String director;
     private String genre;
     private String description;
     private int rating;
 
-    public TvSeries(String title, int seasons, int episodes, String producer, String genre, String description, int rating) {
+    public Movie(String title, int year, String director, String genre, String description, int rating) {
         this.title = title;
-        this.seasons = seasons;
-        this.episodes = episodes;
-        this.producer = producer;
+        this.year = year;
+        this.director = director;
         this.genre = genre;
         this.description = description;
         this.rating = rating;
@@ -25,28 +25,20 @@ public class TvSeries {
         this.title = title;
     }
 
-    public int getSeasons() {
-        return seasons;
+    public int getYear() {
+        return year;
     }
 
-    public void setSeasons(int seasons) {
-        this.seasons = seasons;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public int getEpisodes() {
-        return episodes;
+    public String getDirector() {
+        return director;
     }
 
-    public void setEpisodes(int episodes) {
-        this.episodes = episodes;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-
-    public void setProducer(String producer) {
-        this.producer = producer;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
     public String getGenre() {
@@ -74,11 +66,10 @@ public class TvSeries {
     }
 
     public void showInfo() {
-        System.out.println("TvSeries{" +
+        System.out.println("Movie{" +
                 "title='" + title + '\'' +
-                ", seasons=" + seasons +
-                ", episodes=" + episodes +
-                ", producer='" + producer + '\'' +
+                ", year=" + year +
+                ", director='" + director + '\'' +
                 ", genre='" + genre + '\'' +
                 ", description='" + description + '\'' +
                 ", rating=" + rating +

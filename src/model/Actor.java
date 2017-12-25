@@ -1,3 +1,5 @@
+package model;
+
 public class Actor {
     private String firstName;
     private String lastName;
